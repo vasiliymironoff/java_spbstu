@@ -1,2 +1,16 @@
 # java_polytech
-Репозиторий с работами по предмету "Java" (6 семестр)
+Coursework "Task Application" by subject "Java".
+
+Stack:
+- Language: Java 17
+- Backend framework: 
+  - Spring Boot 3
+  - Spring Data JPA
+  - Spring Cache
+  - Spring Test
+- Database: H2 and PostgreSQL
+- Caching: Redis
+- Message queues: Kafka
+- Database migration: Flyway
+- Test: JUnit
+- Сontainerization system: Docker
