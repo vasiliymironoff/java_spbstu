@@ -14,3 +14,18 @@ Stack:
 - Database migration: Flyway
 - Test: JUnit
 - Сontainerization system: Docker
+
+
+Docker:
+
+`
+docker-compose --version
+`
+
+`
+mvn -N io.takari:maven:wrapper
+`
+
+`
+./mvnw clean package
+`
