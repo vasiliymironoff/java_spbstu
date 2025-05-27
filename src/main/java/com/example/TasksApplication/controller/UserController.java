@@ -2,6 +2,7 @@ package com.example.TasksApplication.controller;
 
 import com.example.TasksApplication.model.User;
 import com.example.TasksApplication.service.InMemoryUserService;
+import com.example.TasksApplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +14,11 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
     @Autowired
-    private InMemoryUserService userService;
+    private UserService userService;
 
     @GetMapping("/{userId}")
     public ResponseEntity<List<User>> getAllUsers(@PathVariable("userId") long id) {
-        User user = userService.getById(id);
+        User user = userService.getUserById(id);
         List<User> users = new ArrayList<>();
         users.add(user);
         return ResponseEntity.ok(users);

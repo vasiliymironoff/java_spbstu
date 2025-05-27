@@ -1,5 +1,6 @@
 package com.example.TasksApplication.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 @Data
@@ -8,9 +9,12 @@ import lombok.*;
 @Builder
 @ToString
 @EqualsAndHashCode
+@Entity
+@Table(name = "users")
 public class User {
 
-    @NonNull
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
     private String firstName;

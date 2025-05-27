@@ -1,7 +1,7 @@
 package com.example.TasksApplication.controller;
 
 import com.example.TasksApplication.model.Task;
-import com.example.TasksApplication.service.InMemoryTaskService;
+import com.example.TasksApplication.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +13,10 @@ import java.util.List;
 @RequestMapping("/tasks")
 public class TaskController {
 
-    private final InMemoryTaskService taskService;
+    private final TaskService taskService;
 
     @Autowired
-    public TaskController(InMemoryTaskService taskService) {
+    public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
 

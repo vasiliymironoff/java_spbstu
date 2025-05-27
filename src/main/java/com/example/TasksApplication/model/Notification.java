@@ -1,5 +1,6 @@
 package com.example.TasksApplication.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -10,9 +11,12 @@ import java.time.LocalDateTime;
 @Builder
 @ToString
 @EqualsAndHashCode
+@Entity
+@Table(name = "notifications")
 public class Notification {
 
-    @NonNull
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idNotification;
 
     @NonNull

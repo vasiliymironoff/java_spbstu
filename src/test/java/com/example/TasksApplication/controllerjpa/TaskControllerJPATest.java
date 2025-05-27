@@ -1,5 +1,6 @@
-package com.example.TasksApplication.controller;
+package com.example.TasksApplication.controllerjpa;
 
+import com.example.TasksApplication.controller.TaskController;
 import com.example.TasksApplication.model.Task;
 import com.example.TasksApplication.service.TaskService;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class TaskControllerTest {
+public class TaskControllerJPATest {
 
     private MockMvc mockMvc;
 
