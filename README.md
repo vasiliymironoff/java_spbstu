@@ -2,7 +2,7 @@
 Coursework "Task Application" by subject "Java".
 
 Stack:
-- Language: Java 17
+- Language: Java 17+
 - Backend framework: 
   - Spring Boot 3
   - Spring Data JPA
@@ -23,9 +23,12 @@ docker-compose --version
 `
 
 `
-mvn -N io.takari:maven:wrapper
+sudo docker-compose up -d --build
 `
 
 `
-./mvnw clean package
+sudo docker ps
+`
+`
+sudo docker-compose down
 `

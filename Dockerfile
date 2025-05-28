@@ -1,10 +1,14 @@
 # Используем образ Maven с JDK 17 для сборки
-FROM maven:3.8.6-openjdk-17 AS build
+FROM eclipse-temurin:17-jdk-jammy AS build
 WORKDIR /workspace
 
 # Копируем файлы конфигурации Maven
 COPY pom.xml ./
 COPY src ./src
+
+RUN apt-get update \
+&& apt-get install -y openjdk-17-jdk \
+&& apt-get install -y maven
 
 # Сборка приложения
 RUN mvn clean package -DskipTests
