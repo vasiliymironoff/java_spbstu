@@ -37,7 +37,7 @@ public class InMemoryTaskRepository implements TaskRepository {
     @Override
     public void deleteTask(Long taskId) {
         for (Long i : tasks.keySet()) {
-            if (tasks.get(i).getTaskId() == taskId) {
+            if (tasks.get(i).getTaskId().equals(taskId)) {
                 tasks.remove(i);
                 break;
             }

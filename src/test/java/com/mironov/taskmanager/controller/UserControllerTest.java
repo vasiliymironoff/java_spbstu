@@ -1,7 +1,6 @@
 package com.mironov.taskmanager.controller;
 
 import com.mironov.taskmanager.exception.DuplicateResourceException;
-import com.mironov.taskmanager.exception.ResourceNotFoundException;
 import com.mironov.taskmanager.model.User;
 import com.mironov.taskmanager.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +25,11 @@ class UserControllerTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        try {
+            MockitoAnnotations.openMocks(this);
+        } catch (Exception e) {
+            throw new RuntimeException("Ошибка инициализации моков", e);
+        }
     }
 
     private User createTestUser() {

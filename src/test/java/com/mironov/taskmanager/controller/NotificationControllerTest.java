@@ -25,7 +25,11 @@ class NotificationControllerTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        try {
+            MockitoAnnotations.openMocks(this);
+        } catch (Exception e) {
+            throw new RuntimeException("Ошибка инициализации моков", e);
+        }
     }
 
     private Notification createTestNotification() {
@@ -68,6 +72,7 @@ class NotificationControllerTest {
 
         // Проверка
         assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
         assertTrue(response.getBody().isEmpty());
     }
 
@@ -101,6 +106,7 @@ class NotificationControllerTest {
 
         // Проверка
         assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
         assertTrue(response.getBody().isEmpty());
     }
 

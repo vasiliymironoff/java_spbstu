@@ -13,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class InMemoryNotificationRepositoryTest {
     private InMemoryNotificationRepository repository;
     private Notification testNotification;
-    private Long testUserId = 1L;
-    private Long testTaskId = 1L;
+    final private Long testUserId = 1L;
+    final private Long testTaskId = 1L;
 
     @BeforeEach
     void setUp() {

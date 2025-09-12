@@ -24,7 +24,11 @@ class NotificationServiceTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        try {
+            MockitoAnnotations.openMocks(this);
+        } catch (Exception e) {
+            throw new RuntimeException("Ошибка инициализации моков", e);
+        }
     }
 
     private Notification createTestNotification() {

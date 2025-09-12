@@ -24,14 +24,14 @@ public class InMemoryNotificationRepository implements NotificationRepository {
 
     @Override
     public List<Notification> findByUserId(Long userId) {
-        return notifications.values().stream().filter(x -> x.getUserId() == userId)
+        return notifications.values().stream().filter(x -> x.getUserId().equals(userId))
                 .toList();
     }
 
     @Override
     public List<Notification> findPendingByUserId(Long userId) {
         return notifications.values().stream().filter(
-                        x -> (x.getUserId() == userId) && x.getPending()
+                        x -> (x.getUserId().equals(userId)) && x.getPending()
                 )
                 .toList();
     }
