@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class InMemoryTaskRepositoryTest {
     private InMemoryTaskRepository repository;
     private Task testTask;
-    private Long testUserId = 1L;
+    final private Long testUserId = 1L;
 
     @BeforeEach
     void setUp() {
