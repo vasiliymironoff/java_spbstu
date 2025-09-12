@@ -43,4 +43,8 @@ public class InMemoryTaskRepository implements TaskRepository {
             }
         }
     }
+
+    public int size() {
+        return tasks.size();
+    }
 }

@@ -96,5 +96,25 @@ The learning curve for Gradle is steeper due to its flexibility and DSL, while M
 
 Run `./gradlew bootRun --info`
 
+## Step 2
+
+Tests run: `./gradlew test`
+
+Count tests: 39 items
+
+Tests for controllers: 
+- NotificationControllerTest (5 tests)
+- TaskControllerTest (5 tests)
+- UserControllerTest (4 tests)
+
+Tests for repository:
+- NotificationRepositoryTest (4)
+- TaskRepositoryTest (7)
+- UserRepositoryTest (4)
+
+Tests for service:
+- NotificationServiceTest (4)
+- TaskServiceTest (4)
+- UserServiceTest (5)
 
 

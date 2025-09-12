@@ -41,4 +41,8 @@ public class InMemoryUserRepository implements UserRepository {
         return users.values().stream()
                 .anyMatch(u -> u.getEmail().equals(email));
     }
+
+    public int size() {
+        return users.size();
+    }
 } 

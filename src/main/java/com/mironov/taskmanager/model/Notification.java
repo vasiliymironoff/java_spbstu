@@ -29,4 +29,4 @@ public class Notification {
     @Builder.Default
     private LocalDateTime dateCreation = LocalDateTime.now();
 
-} 
+}

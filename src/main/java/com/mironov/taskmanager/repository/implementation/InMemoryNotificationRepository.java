@@ -35,4 +35,16 @@ public class InMemoryNotificationRepository implements NotificationRepository {
                 )
                 .toList();
     }
+
+    public int size() {
+        return notifications.size();
+    }
+
+    public List<Long> keySet() {
+        return notifications.keySet().stream().toList();
+    }
+
+    public List<Notification> values() {
+        return notifications.values().stream().toList();
+    }
 }
