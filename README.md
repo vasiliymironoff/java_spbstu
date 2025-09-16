@@ -124,3 +124,8 @@ Run `./gradlew bootRun --info`
 ULR for console: http://localhost:8080/h2-console
 
 
+## Step 4
+Command for running: 
+
+`docker-compose up`
+
