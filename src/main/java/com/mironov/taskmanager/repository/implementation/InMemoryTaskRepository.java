@@ -1,17 +1,17 @@
 package com.mironov.taskmanager.repository.implementation;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import com.mironov.taskmanager.model.Task;
 import com.mironov.taskmanager.repository.TaskRepository;
-
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
+@Profile("inmemory")
 public class InMemoryTaskRepository implements TaskRepository {
     private final Map<Long, Task> tasks = new HashMap<>();
     private final AtomicLong taskIdCounter = new AtomicLong(1);
-
 
     @Override
     public Task save(Task task) {
@@ -35,7 +35,7 @@ public class InMemoryTaskRepository implements TaskRepository {
     }
 
     @Override
-    public void deleteTask(Long taskId) {
+    public void deleteById(Long taskId) {
         for (Long i : tasks.keySet()) {
             if (tasks.get(i).getTaskId().equals(taskId)) {
                 tasks.remove(i);

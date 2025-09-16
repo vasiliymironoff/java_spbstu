@@ -1,5 +1,6 @@
 package com.mironov.taskmanager.service;
 
+import com.mironov.taskmanager.repository.jpa.JpaUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.mironov.taskmanager.exception.ResourceNotFoundException;
@@ -13,7 +14,7 @@ import java.util.regex.Pattern;
 public class UserService {
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
 
-    private final UserRepository userRepository;
+    private final JpaUserRepository userRepository;
 
     public User registerUser(User user) {
         validateUser(user);

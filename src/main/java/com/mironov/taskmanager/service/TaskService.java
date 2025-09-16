@@ -1,5 +1,6 @@
 package com.mironov.taskmanager.service;
 
+import com.mironov.taskmanager.repository.jpa.JpaTaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.mironov.taskmanager.exception.ResourceNotFoundException;
@@ -13,14 +14,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TaskService {
 
-    private final TaskRepository taskRepository;
+    private final JpaTaskRepository taskRepository;
 
     public List<Task> getAllTasks(Long userId) {
-        return taskRepository.getAllTasks();
+        return taskRepository.findAll();
     }
 
     public List<Task> getPendingTasks(Long userId) {
-        return taskRepository.findPendingTask(userId);
+        return taskRepository.findByUserIdAndPending(userId, true);
     }
 
     public Task createTask(Task task) {
@@ -30,7 +31,7 @@ public class TaskService {
     }
 
     public void deleteTask(Long taskId) {
-        taskRepository.deleteTask(taskId);
+        taskRepository.deleteById(taskId);
     }
 
     private void validateTask(Task task) {

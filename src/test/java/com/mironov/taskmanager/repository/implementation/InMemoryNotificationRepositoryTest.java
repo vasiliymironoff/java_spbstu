@@ -32,7 +32,7 @@ class InMemoryNotificationRepositoryTest {
     @Test
     void testCreateNotification() {
         // Создаем уведомление
-        repository.createNotification(testNotification);
+        repository.save(testNotification);
 
         // Проверяем, что уведомление было создано
         assertEquals(1, repository.size());
@@ -61,8 +61,8 @@ class InMemoryNotificationRepositoryTest {
                 .userId(2L)
                 .build();
 
-        repository.createNotification(user1Notification);
-        repository.createNotification(user2Notification);
+        repository.save(user1Notification);
+        repository.save(user2Notification);
 
         // Ищем уведомления для пользователя 1
         List<Notification> user1Notifications = repository.findByUserId(1L);
@@ -92,11 +92,11 @@ class InMemoryNotificationRepositoryTest {
                 .pending(false)
                 .build();
 
-        repository.createNotification(pendingNotification);
-        repository.createNotification(nonPendingNotification);
+        repository.save(pendingNotification);
+        repository.save(nonPendingNotification);
 
         // Ищем ожидающие уведомления
-        List<Notification> pendingNotifications = repository.findPendingByUserId(testUserId);
+        List<Notification> pendingNotifications = repository.findByUserIdAndPending(testUserId);
         assertEquals(1, pendingNotifications.size());
         assertTrue(pendingNotifications.get(0).getPending());
     }
@@ -104,13 +104,13 @@ class InMemoryNotificationRepositoryTest {
     @Test
     void testFindById_ExistingId() {
         // Создаем уведомление и сохраняем его
-        repository.createNotification(testNotification);
+        repository.save(testNotification);
 
         // Получаем ID созданного уведомления
         Long notificationId = repository.keySet().iterator().next();
 
         // Пытаемся найти уведомление по ID
-        Optional<Notification> foundNotification = repository.findById(notificationId);
+        Optional<Notification> foundNotification = repository.findByNotificationId(notificationId);
 
         // Проверяем, что метод возвращает пустой Optional
         assertFalse(foundNotification.isPresent());

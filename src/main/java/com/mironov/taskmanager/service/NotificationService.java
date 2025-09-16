@@ -1,26 +1,25 @@
 package com.mironov.taskmanager.service;
 
 import com.mironov.taskmanager.exception.ResourceNotFoundException;
+import com.mironov.taskmanager.repository.jpa.JpaNotificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.mironov.taskmanager.model.Notification;
-import com.mironov.taskmanager.repository.NotificationRepository;
-
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class NotificationService {
 
-    private final NotificationRepository notificationRepository;
+    private final JpaNotificationRepository notificationRepository;
 
     public Notification getNotificationById(Long notificationId) {
-        return notificationRepository.findById(notificationId)
+        return notificationRepository.findByNotificationId(notificationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Notification not found with id: " + notificationId));
     }
 
     public Notification createNotification(Notification notification) {
-        notificationRepository.createNotification(notification);
+        notificationRepository.save(notification);
         return notification;
     }
 
@@ -29,7 +28,7 @@ public class NotificationService {
     }
 
     public List<Notification> getPendingNotifications(Long userId) {
-        return notificationRepository.findPendingByUserId(userId);
+        return notificationRepository.findByUserIdAndPending(userId, true);
     }
 
     private void validateNotification(Notification notification) {

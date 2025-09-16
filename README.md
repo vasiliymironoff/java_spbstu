@@ -10,7 +10,7 @@
 - Store tasks in a List or Map (no database yet!!)
 - Return JSON responses with adequate http codes
 
-### Step 2 (branch 2). Write unit-tests 
+### Step 2 (branch 2). Write unit-tests
 - Using JUnit or TestNG write unit-tests for your application
 
 ### Step 3 (branch 3). In-Memory Database (H2) 
@@ -116,5 +116,11 @@ Tests for service:
 - NotificationServiceTest (4)
 - TaskServiceTest (4)
 - UserServiceTest (5)
+
+## Step 3
+
+Run `./gradlew bootRun --info`
+
+ULR for console: http://localhost:8080/h2-console
 
 

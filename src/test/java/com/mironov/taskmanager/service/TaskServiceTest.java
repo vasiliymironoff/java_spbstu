@@ -110,6 +110,6 @@ class TaskServiceTest {
         taskService.deleteTask(taskId);
 
         // Проверка
-        verify(taskRepository).deleteTask(taskId);
+        verify(taskRepository).deleteById(taskId);
     }
 }

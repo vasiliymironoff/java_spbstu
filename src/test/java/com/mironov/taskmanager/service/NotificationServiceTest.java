@@ -43,7 +43,7 @@ class NotificationServiceTest {
     void testGetNotificationById_Success() {
         // Подготовка
         Notification notification = createTestNotification();
-        when(notificationRepository.findById(anyLong()))
+        when(notificationRepository.findByNotificationId(anyLong()))
                 .thenReturn(Optional.of(notification));
 
         // Выполнение
@@ -51,13 +51,13 @@ class NotificationServiceTest {
 
         // Проверка
         assertEquals(notification, result);
-        verify(notificationRepository).findById(1L);
+        verify(notificationRepository).findByNotificationId(1L);
     }
 
     @Test
     void testGetNotificationById_NotFound() {
         // Подготовка
-        when(notificationRepository.findById(anyLong()))
+        when(notificationRepository.findByNotificationId(anyLong()))
                 .thenReturn(Optional.empty());
 
         // Выполнение и проверка
@@ -76,7 +76,7 @@ class NotificationServiceTest {
 
         // Проверка
         assertEquals(notification, result);
-        verify(notificationRepository).createNotification(notification);
+        verify(notificationRepository).save(notification);
     }
 
     @Test

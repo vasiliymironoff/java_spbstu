@@ -9,5 +9,5 @@ public interface TaskRepository {
     Task save(Task task);
     List<Task> getAllTasks();
     List<Task> findPendingTask(Long userId);
-    void deleteTask(Long taskId);
+    void deleteById(Long taskId);
 }

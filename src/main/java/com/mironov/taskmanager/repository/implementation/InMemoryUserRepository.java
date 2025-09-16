@@ -1,5 +1,6 @@
 package com.mironov.taskmanager.repository.implementation;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import com.mironov.taskmanager.model.User;
 import com.mironov.taskmanager.repository.UserRepository;
@@ -10,6 +11,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
+@Profile("inmemory")
 public class InMemoryUserRepository implements UserRepository {
     private final Map<Long, User> users = new HashMap<>();
     private final AtomicLong userIdCounter = new AtomicLong(1);

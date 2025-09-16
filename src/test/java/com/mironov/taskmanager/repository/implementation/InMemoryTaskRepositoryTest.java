@@ -95,7 +95,7 @@ class InMemoryTaskRepositoryTest {
         Task taskToDelete = repository.save(testTask);
 
         // Удаляем задачу
-        repository.deleteTask(taskToDelete.getTaskId());
+        repository.deleteById(taskToDelete.getTaskId());
 
         // Проверяем удаление
         assertEquals(0, repository.size());
@@ -104,7 +104,7 @@ class InMemoryTaskRepositoryTest {
     @Test
     void testDeleteNonExistingTask() {
         // Пытаемся удалить несуществующую задачу
-        repository.deleteTask(1L);
+        repository.deleteById(1L);
 
         // Проверяем, что ничего не произошло
         assertEquals(0, repository.size());
