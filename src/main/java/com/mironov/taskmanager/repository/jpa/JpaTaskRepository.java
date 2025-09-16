@@ -25,10 +25,6 @@ public interface JpaTaskRepository extends JpaRepository<Task, Long> {
     // Поиск задач по пользователю и статусу pending
     List<Task> findByUserIdAndPending(Long userId, Boolean pending);
 
-    // Дополнительные полезные методы:
-    List<Task> findByUserId(Long userId);
-    List<Task> findByPending(Boolean pending);
-
     // Метод deleteById наследуется от JpaRepository, его не нужно переопределять
     // void deleteById(Long taskId);
 }

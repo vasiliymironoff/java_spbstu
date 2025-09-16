@@ -3,10 +3,7 @@ package com.mironov.taskmanager.service;
 import com.mironov.taskmanager.repository.jpa.JpaTaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.mironov.taskmanager.exception.ResourceNotFoundException;
 import com.mironov.taskmanager.model.Task;
-import com.mironov.taskmanager.repository.TaskRepository;
-
 import java.time.LocalDateTime;
 import java.util.List;
 

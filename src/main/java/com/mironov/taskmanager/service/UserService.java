@@ -5,8 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.mironov.taskmanager.exception.ResourceNotFoundException;
 import com.mironov.taskmanager.model.User;
-import com.mironov.taskmanager.repository.UserRepository;
-
 import java.util.regex.Pattern;
 
 @Service
