@@ -137,6 +137,8 @@ Command for running:
 
 `docker-compose down`
 
+`docker system prune`
+
 `docker-compose up -build`
 
 Подключиться к базе данных:
@@ -165,3 +167,55 @@ Command for running:
 Проверка состояний контейнеров:
 
 `docker-compose ps`
+
+## Step 6
+Проверка работы локального редиса:
+
+`redis-cli ping`
+
+Остановка работы локального редиса:
+
+`redis-cli shutdown`
+
+`sudo systemctl stop redis-server`
+
+Проверка логов контейнера redis:
+
+`docker logs tasks-redis`
+
+Проверка подключения к redis:
+
+`docker exec -it tasks-app bash`
+
+`apt update`
+
+`apt install iputils-ping`
+
+`ping redis`
+
+Или `docker exec -it tasks-redis redis-cli ping`
+
+Подключение к контейнеру redis (проверка работы кеширования):
+
+`docker exec -it tasks-redis redis-cli`
+
+`> PING`
+
+`> KEYS *`
+
+`> INFO`
+
+`> CLIENT LIST`
+
+`
+KEYS user:*
+KEYS task:*
+KEYS notification:*
+`
+
+Может потребоваться:
+
+`sudo nano /etc/sysctl.conf`
+Добавить строку: vm.overcommit_memory = 1
+
+Применить изменения: `sudo sysctl -p`

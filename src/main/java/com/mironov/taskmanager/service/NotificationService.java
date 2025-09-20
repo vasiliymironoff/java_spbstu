@@ -2,6 +2,8 @@ package com.mironov.taskmanager.service;
 
 import com.mironov.taskmanager.exception.ResourceNotFoundException;
 import com.mironov.taskmanager.repository.jpa.JpaNotificationRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,34 +17,25 @@ public class NotificationService {
     @Autowired
     private final JpaNotificationRepository notificationRepository;
 
+    @Cacheable(value = "notifications", key = "#notificationId.toString()", unless = "#result.isEmpty()")
     public Notification getNotificationById(Long notificationId) {
         return notificationRepository.findByNotificationId(notificationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Notification not found with id: " + notificationId));
     }
 
+    @CacheEvict(value = "notifications", allEntries = true)
     public Notification createNotification(Notification notification) {
         notificationRepository.save(notification);
         return notification;
     }
 
+    @Cacheable(value = "notifications", key = "#userId.toString()", unless = "#result.isEmpty()")
     public List<Notification> getAllNotifications(Long userId) {
         return notificationRepository.findByUserId(userId);
     }
 
+    @Cacheable(value = "notifications", key = "#userId.toString()", unless = "#result.isEmpty()")
     public List<Notification> getPendingNotifications(Long userId) {
         return notificationRepository.findByUserIdAndPending(userId, true);
-    }
-
-    private void validateNotification(Notification notification) {
-        if (notification.getText() == null
-                || notification.getText().trim().isEmpty()) {
-            throw new IllegalArgumentException("Notification text cannot be empty");
-        }
-        if (notification.getTaskId() == null) {
-            throw new IllegalArgumentException("TaskID cannot be null");
-        }
-        if (notification.getUserId() == null) {
-            throw new IllegalArgumentException("UserID cannot be null");
-        }
     }
 }

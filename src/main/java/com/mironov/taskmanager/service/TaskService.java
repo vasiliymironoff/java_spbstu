@@ -3,6 +3,8 @@ package com.mironov.taskmanager.service;
 import com.mironov.taskmanager.repository.jpa.JpaTaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import com.mironov.taskmanager.model.Task;
 import java.time.LocalDateTime;
@@ -15,20 +17,24 @@ public class TaskService {
     @Autowired
     private final JpaTaskRepository taskRepository;
 
+    @Cacheable(value = "tasks", key = "#userId.toString()", unless = "#result.isEmpty()")
     public List<Task> getAllTasks(Long userId) {
         return taskRepository.findAll();
     }
 
+    @Cacheable(value = "tasks", key = "#userId.toString()", unless = "#result.isEmpty()")
     public List<Task> getPendingTasks(Long userId) {
         return taskRepository.findByUserIdAndPending(userId, true);
     }
 
+    @CacheEvict(value = "tasks", allEntries = true)
     public Task createTask(Task task) {
         validateTask(task);
         task.setDateCreation(LocalDateTime.now());
         return taskRepository.save(task);
     }
 
+    @CacheEvict(value = "tasks", allEntries = true)
     public void deleteTask(Long taskId) {
         taskRepository.deleteById(taskId);
     }

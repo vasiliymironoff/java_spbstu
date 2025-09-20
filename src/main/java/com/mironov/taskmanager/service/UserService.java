@@ -3,6 +3,8 @@ package com.mironov.taskmanager.service;
 import com.mironov.taskmanager.repository.jpa.JpaUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import com.mironov.taskmanager.exception.ResourceNotFoundException;
 import com.mironov.taskmanager.model.User;
@@ -16,6 +18,7 @@ public class UserService {
     @Autowired
     private final JpaUserRepository userRepository;
 
+    @CacheEvict(value = "users", allEntries = true)
     public User registerUser(User user) {
         validateUser(user);
         checkUsernameExists(user.getUsername());
@@ -23,6 +26,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    @Cacheable(value = "users", key = "#username")
     public User login(String username, String password) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("Invalid username or password"));
