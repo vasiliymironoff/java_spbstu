@@ -150,7 +150,8 @@ Command for running:
 `docker-compose logs postgres`
 
 Проверить работоспособность:
-
+`apt update`
+`apt install curl`
 `curl http://localhost:8080/api/users/`
 
 Войти в контейнер tasks_db:
