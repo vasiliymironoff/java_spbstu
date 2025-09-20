@@ -8,20 +8,17 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 
+
 @Repository
-@Profile("h2")
+@Profile({"h2", "postgres"})
 public interface JpaTaskRepository extends JpaRepository<Task, Long> {
-    // Метод save наследуется от JpaRepository, его не нужно переопределять
-    // Task save(Task task);
 
     // Получение всех задач - используем стандартное имя метода
     @Override
     List<Task> findAll();
-
     // Альтернативный вариант с кастомным запросом (если нужен особый порядок сортировки)
     @Query("SELECT t FROM Task t")
     List<Task> findAllTasks();
-
     // Поиск задач по пользователю и статусу pending
     List<Task> findByUserIdAndPending(Long userId, Boolean pending);
 

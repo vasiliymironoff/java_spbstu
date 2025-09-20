@@ -3,6 +3,7 @@ package com.mironov.taskmanager.service;
 import com.mironov.taskmanager.exception.ResourceNotFoundException;
 import com.mironov.taskmanager.repository.jpa.JpaNotificationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.mironov.taskmanager.model.Notification;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NotificationService {
 
+    @Autowired
     private final JpaNotificationRepository notificationRepository;
 
     public Notification getNotificationById(Long notificationId) {

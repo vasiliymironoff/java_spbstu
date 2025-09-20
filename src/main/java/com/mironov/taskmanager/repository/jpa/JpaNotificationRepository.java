@@ -9,11 +9,8 @@ import java.util.Optional;
 
 
 @Repository
-@Profile("h2")
+@Profile({"h2", "postgres"})
 public interface JpaNotificationRepository extends JpaRepository<Notification, Long> {
-    // Сохранение уведомления
-    @Override
-    Notification save(Notification notification);
     // Поиск по ID уведомления
     Optional<Notification> findByNotificationId(Long notificationId);
     // Поиск всех уведомлений по пользователю

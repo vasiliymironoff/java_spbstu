@@ -129,3 +129,38 @@ Command for running:
 
 `docker-compose up`
 
+## Step 5 
+
+`sudo lsof -i :5432`
+
+`sudo kill -9 <pid>`
+
+`docker-compose down`
+
+`docker-compose up -build`
+
+Подключиться к базе данных:
+`docker run -it --network java_spbstu_default --rm postgres psql -h tasks-postgres -U postgres -d postgres`
+
+Посмотреть процессы docker:
+`docker ps`
+
+Посмотреть логи приложения и бд:
+`docker-compose logs app`
+`docker-compose logs postgres`
+
+Проверить работоспособность:
+
+`curl http://localhost:8080/api/users/`
+
+Войти в контейнер tasks_db:
+
+`docker exec -it tasks-postgres psql -U postgres -d tasks_db`
+
+Войти к контейнер tasks-app:
+
+`docker exec -it tasks-app bash`
+
+Проверка состояний контейнеров:
+
+`docker-compose ps`

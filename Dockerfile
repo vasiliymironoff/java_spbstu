@@ -6,6 +6,12 @@ COPY build.gradle settings.gradle gradlew gradle/ ./
 
 RUN gradle --no-daemon dependencies
 
+RUN apt-get update && \
+    apt-get install -y \
+    postgresql-client \
+    curl \
+    iputils-ping
+
 COPY . .
 
 RUN gradle --no-daemon clean bootJar -x test

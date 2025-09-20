@@ -2,6 +2,7 @@ package com.mironov.taskmanager.service;
 
 import com.mironov.taskmanager.repository.jpa.JpaTaskRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.mironov.taskmanager.model.Task;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TaskService {
 
+    @Autowired
     private final JpaTaskRepository taskRepository;
 
     public List<Task> getAllTasks(Long userId) {
