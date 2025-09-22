@@ -1,5 +1,6 @@
 package com.mironov.taskmanager.service;
 
+import com.mironov.taskmanager.messaging.MessageProducer;
 import com.mironov.taskmanager.repository.jpa.JpaTaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class TaskService {
 
     @Autowired
     private final JpaTaskRepository taskRepository;
+    @Autowired
+    private final MessageProducer messageProducer;
 
     @Cacheable(value = "tasks", key = "#userId.toString()", unless = "#result.isEmpty()")
     public List<Task> getAllTasks(Long userId) {
@@ -31,7 +34,11 @@ public class TaskService {
     public Task createTask(Task task) {
         validateTask(task);
         task.setDateCreation(LocalDateTime.now());
-        return taskRepository.save(task);
+        Task savedTask = taskRepository.save(task);
+        System.out.println(1);
+        messageProducer.publishTaskCreated(savedTask);
+        System.out.println(2);
+        return savedTask;
     }
 
     @CacheEvict(value = "tasks", allEntries = true)

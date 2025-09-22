@@ -38,4 +38,13 @@ public class NotificationService {
     public List<Notification> getPendingNotifications(Long userId) {
         return notificationRepository.findByUserIdAndPending(userId, true);
     }
+
+    public Notification createNotificationFromMessage(String message, Long userId) {
+        Notification notification = Notification.builder()
+                .text(message)
+                .userId(userId)
+                .pending(false)
+                .build();
+        return createNotification(notification);
+    }
 }

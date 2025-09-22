@@ -219,3 +219,62 @@ KEYS notification:*
 Добавить строку: vm.overcommit_memory = 1
 
 Применить изменения: `sudo sysctl -p`
+
+
+## Step 7
+Стутус локального rabbitmq
+`sudo rabbitmqctl status`
+
+Остановить локальный rabbitMQ (если он есть):
+`sudo rabbitmqctl stop`
+
+Подключение к контейнеру rabbitmq:
+`docker exec -it tasks-rabbitmq bash`
+
+Лог контейнера rabbitmq:
+`docker logs tasks-rabbitmq`
+
+Проверка статуса rabbitmq:
+`rabbitmqctl status`
+
+Список очередей:
+`rabbitmqctl list_queues`
+
+Список соединений:
+`rabbitmqctl list_connections`
+
+`
+curl http://localhost:15672
+`
+
+Проверка открытых портов:
+`netstat -tulpn | grep 5672`
+
+# Просмотр всех очередей
+`
+rabbitmqctl list_queues
+`
+
+# Удаление конкретной очереди
+`
+rabbitmqctl purge_queue <name_queque>
+`
+
+# Удаление всех очередей
+`
+rabbitmqctl stop_app
+rabbitmqctl reset
+rabbitmqctl start_app
+`
+
+Список открытых соединений:
+
+`rabbitmqctl list_connections`
+
+
+`docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4.0-management`
+
+URL для доступа к Rabbitmq http://localhost:15672
+
+username: guest
+password: guest
