@@ -3,6 +3,7 @@ package com.mironov.taskmanager.service;
 import com.mironov.taskmanager.messaging.MessageProducer;
 import com.mironov.taskmanager.repository.jpa.JpaTaskRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -11,6 +12,9 @@ import com.mironov.taskmanager.model.Task;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static io.lettuce.core.pubsub.PubSubOutput.Type.message;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class TaskService {
@@ -35,9 +39,9 @@ public class TaskService {
         validateTask(task);
         task.setDateCreation(LocalDateTime.now());
         Task savedTask = taskRepository.save(task);
-        System.out.println(1);
+        log.info("Starting method messageProducer.publishTaskCreated");
         messageProducer.publishTaskCreated(savedTask);
-        System.out.println(2);
+        log.info("Ending method messageProducer.publishTaskCreated");
         return savedTask;
     }
 

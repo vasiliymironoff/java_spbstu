@@ -30,5 +30,7 @@ public class MessageProducer {
                 RabbitMQConfig.TASK_CREATED_ROUTING_KEY,
                 message
         );
+
+        log.info("Publied tasks");
     }
 }

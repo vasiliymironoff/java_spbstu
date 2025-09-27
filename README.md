@@ -216,12 +216,16 @@ KEYS notification:*
 Может потребоваться:
 
 `sudo nano /etc/sysctl.conf`
+
 Добавить строку: vm.overcommit_memory = 1
 
 Применить изменения: `sudo sysctl -p`
 
 
 ## Step 7
+Удалить все контейнеры:
+`docker container prune`
+
 Стутус локального rabbitmq
 `sudo rabbitmqctl status`
 
@@ -250,17 +254,17 @@ curl http://localhost:15672
 Проверка открытых портов:
 `netstat -tulpn | grep 5672`
 
-# Просмотр всех очередей
+Просмотр всех очередей
 `
 rabbitmqctl list_queues
 `
 
-# Удаление конкретной очереди
+ Удаление конкретной очереди
 `
 rabbitmqctl purge_queue <name_queque>
 `
 
-# Удаление всех очередей
+ Удаление всех очередей
 `
 rabbitmqctl stop_app
 rabbitmqctl reset
@@ -278,3 +282,11 @@ URL для доступа к Rabbitmq http://localhost:15672
 
 username: guest
 password: guest
+
+В случае наличия ошибки подключения к хосту :
+
+`sudo lsof -i :5432`
+
+`sudo kill -9 <PID>`
+
+

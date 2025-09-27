@@ -24,7 +24,6 @@ public class MessageConsumer {
         try {
             log.info("Received task created message: {}", message);
 
-            // Create notification for the task creator
             notificationService.createNotificationFromMessage(
                     "New task created: " + message.getTitle(),
                     message.getUserId()
@@ -32,7 +31,7 @@ public class MessageConsumer {
             log.info("Created notification for task: {}", message.getTaskId());
         } catch (Exception e) {
             log.error("Error processing message: {}", message, e);
-            throw e; // позволить RabbitMQ обработать повторные попытки
+            throw e;
         }
     }
 
