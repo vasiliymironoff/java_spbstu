@@ -1,0 +1,72 @@
+package com.mironov.taskmanager.service;
+
+import com.mironov.taskmanager.messaging.MessageProducer;
+import com.mironov.taskmanager.model.Status;
+import com.mironov.taskmanager.repository.jpa.JpaTaskRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+import com.mironov.taskmanager.model.Task;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class TaskService {
+
+    @Autowired
+    private final JpaTaskRepository taskRepository;
+    @Autowired
+    private final MessageProducer messageProducer;
+
+    @Cacheable(value = "tasks", key = "#userId.toString()", unless = "#result.isEmpty()")
+    public List<Task> getAllTasks(Long userId) {
+        return taskRepository.findAll();
+    }
+
+    @Cacheable(value = "tasks", key = "#userId.toString()", unless = "#result.isEmpty()")
+    public List<Task> getPendingTasks(Long userId) {
+        return taskRepository.findByUserIdAndPending(userId, true);
+    }
+
+    @CacheEvict(value = "tasks", allEntries = true)
+    public Task createTask(Task task) {
+        validateTask(task);
+        task.setDateCreation(LocalDateTime.now());
+        Task savedTask = taskRepository.save(task);
+        log.info("Starting method messageProducer.publishTaskCreated");
+        messageProducer.publishTaskCreated(savedTask);
+        log.info("Ending method messageProducer.publishTaskCreated");
+        return savedTask;
+    }
+
+    @CacheEvict(value = "tasks", allEntries = true)
+    public void deleteTask(Long taskId) {
+        taskRepository.deleteById(taskId);
+    }
+
+    private void validateTask(Task task) {
+        if (task.getUserId() == null) {
+            throw new IllegalArgumentException("Task userId cannot be null");
+        }
+        if (task.getTitle() == null || task.getTitle().trim().isEmpty()) {
+            throw new IllegalArgumentException("Task title cannot be empty");
+        }
+        if (task.getDescription() == null || task.getDescription().trim().isEmpty()) {
+            throw new IllegalArgumentException("Task description cannot be empty");
+        }
+    }
+
+    public Task updateTask(Long taskId, Task task) {
+        return taskRepository.updateTask(taskId, task);
+    }
+
+    public Collection<Task> findByStatus(Status status) {
+        return taskRepository.findAll().stream().filter(task -> task.getStatus() == status).toList();
+    }
+}
