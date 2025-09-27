@@ -38,4 +38,10 @@ public class Task implements Serializable {
     @NonNull
     @Builder.Default
     private LocalDateTime dateCreation = LocalDateTime.now();
+
+    @NonNull
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private Status status = Status.TODO;
 } 

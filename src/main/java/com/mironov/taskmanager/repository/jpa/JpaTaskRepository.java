@@ -24,4 +24,6 @@ public interface JpaTaskRepository extends JpaRepository<Task, Long> {
 
     // Метод deleteById наследуется от JpaRepository, его не нужно переопределять
     // void deleteById(Long taskId);
+
+    Task updateTask(Long taskId, Task task);
 }

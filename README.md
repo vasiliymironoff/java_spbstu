@@ -290,3 +290,14 @@ password: guest
 `sudo kill -9 <PID>`
 
 
+# Step 8
+
+Запуск
+`docker-compose up --build`
+
+Метод checkOverdueTasks класса TaskSchedulerService запускается каждые 100 секунд, 
+ищет просроченные tasks (задания, с момента создания которых прошло более 10 дней)
+с помощью метода findOverdueTasks класса TaskSchedulerService, 
+использует асинхронный метод processOverdueTask класса TaskSchedulerService 
+для обновления статуса таски с TODO (выполнить) на Overdue (просрочено) и создает уведомления с помощью
+createNotificationFromMessage (смотреть step-7).   

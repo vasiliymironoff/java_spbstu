@@ -1,6 +1,7 @@
 package com.mironov.taskmanager.service;
 
 import com.mironov.taskmanager.messaging.MessageProducer;
+import com.mironov.taskmanager.model.Status;
 import com.mironov.taskmanager.repository.jpa.JpaTaskRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,9 +11,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import com.mironov.taskmanager.model.Task;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
-
-import static io.lettuce.core.pubsub.PubSubOutput.Type.message;
 
 @Slf4j
 @Service
@@ -60,5 +60,13 @@ public class TaskService {
         if (task.getDescription() == null || task.getDescription().trim().isEmpty()) {
             throw new IllegalArgumentException("Task description cannot be empty");
         }
+    }
+
+    public Task updateTask(Long taskId, Task task) {
+        return taskRepository.updateTask(taskId, task);
+    }
+
+    public Collection<Task> findByStatus(Status status) {
+        return taskRepository.findAll().stream().filter(task -> task.getStatus() == status).toList();
     }
 }

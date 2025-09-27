@@ -44,6 +44,11 @@ public class InMemoryTaskRepository implements TaskRepository {
         }
     }
 
+    @Override
+    public Task updateTask(Long taskId, Task task) {
+        return tasks.put(taskId, task);
+    }
+
     public int size() {
         return tasks.size();
     }
